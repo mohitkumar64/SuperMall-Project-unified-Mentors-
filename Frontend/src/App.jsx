@@ -1,7 +1,9 @@
 
 import './App.css'
 import { Routes , Route } from 'react-router-dom'
-import MainPage from './pages/MainPanel'
+
+import MainPage from './Pages/MainPanel'
+
 import DataProvider from './outlet/DataProvider'
 import Login from './Pages/Auth/Login'
 import Signup from './Pages/Auth/Singup'
