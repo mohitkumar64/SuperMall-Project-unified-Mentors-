@@ -58,9 +58,7 @@ const handleLogout = async()=>{
         </button>
         }
 
-        <button onClick={handleLogout} className="Font text-lg hover:underline">
-         logout
-        </button>
+        
       </div>
 
     </header>
