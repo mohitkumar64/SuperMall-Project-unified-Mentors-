@@ -49,6 +49,14 @@ const handleLogout = async()=>{
         </button>
         }
         
+        {
+          role ?
+           <button onClick={handleLogout} className="Font text-lg hover:underline">
+         logout
+        </button> :  <button onClick={()=> navigate('/login')} className="Font text-lg hover:underline">
+         login/signup
+        </button>
+        }
 
         <button onClick={handleLogout} className="Font text-lg hover:underline">
          logout

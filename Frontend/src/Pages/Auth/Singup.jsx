@@ -14,7 +14,7 @@ function Signup() {
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const naviagte = useNavigate();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -44,7 +44,7 @@ function Signup() {
         createdAt: Date.now()
       });
 
-        naviagte('/');
+        navigate('/');
 
     } catch (err) {
       setError(err.message);
@@ -99,6 +99,11 @@ function Signup() {
         </select>
 
         {error && <p className="text-red-500 text-sm">{error}</p>}
+         <p className="cursor-pointer text-blue font-semibold mt-3 text-blue-500 p-2" onClick={()=>{
+            navigate('/login')
+        }}  >
+           already have a account? login
+        </p>
 
         <button
           disabled={loading}

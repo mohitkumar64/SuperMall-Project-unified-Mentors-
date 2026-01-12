@@ -72,7 +72,7 @@ function Login() {
           {loading ? "Logging in..." : "Login"}
         </button>
 
-        <p className="cursor-pointer text-blue font-semibold mt-3 p-2" onClick={()=>{
+        <p className="cursor-pointer text-blue font-semibold mt-3 p-2 text-blue-600" onClick={()=>{
             navigate('/singup')
         }}  >
             not have a account? singup
