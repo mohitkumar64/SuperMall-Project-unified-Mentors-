@@ -16,7 +16,9 @@ function ManageMerchants() {
   }, []);
 
   const merchants = users.filter(u => u.role === "merchant");
-
+  const removeMerchant = (merchantId)=>{
+    users.filter(m => m.id !== merchantId)
+  }
   const handlePromote = async (userId) => {
     await promoteToMerchant(userId);
 
@@ -38,10 +40,10 @@ function ManageMerchants() {
 
         <div className="flex-1 p-6 overflow-y-auto">
           <div className="flex justify-between mb-6">
-            <h1 className="text-3xl font-bold">Merchants</h1>
+            <h1 className=" text-xl    md:text-3xl font-bold">Merchants</h1>
             <button
               onClick={() => setShowAddMerchant(true)}
-              className="bg-blue-600 text-white px-5 py-2 rounded"
+              className="bg-blue-600 text-white px-2 md:px-5 md:py-2 rounded"
             >
               + Add Merchant
             </button>
@@ -50,7 +52,8 @@ function ManageMerchants() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {merchants.map(m => {
                 const shop = shops.filter((s)=> s.merchantId === m.id)
-             return ( <MerchantCard key={m.id} shop={shop} merchant={m} />)}
+             return ( <MerchantCard key={m.id} 
+              removeMerchant={removeMerchant}     shop={shop} merchant={m} />)}
             )}
           </div>
         </div>

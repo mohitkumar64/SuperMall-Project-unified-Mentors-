@@ -14,6 +14,7 @@ function ManageProducts() {
   
 
   const [products, setProducts] = useState([]);
+  const [preview, setPreview] = useState(null);
 //   const [shopId, setShopId] = useState(null);
 
   const [form, setForm] = useState({
@@ -34,12 +35,22 @@ function ManageProducts() {
    
   }, []);
 
+  useEffect(() => {
+  
+  return () => {
+    if (preview) {
+      URL.revokeObjectURL(preview);
+    }
+  };
+}, [preview]);
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleFileChange = (e) => {
-    setForm({ ...form, image: e.target.files[0] });
+    setForm({ ...form, image: e.target.files[0] })
+    setPreview(URL.createObjectURL(e.target.files[0]))
   };
 
 const handleDelete = async (productId) => {
@@ -97,10 +108,11 @@ const handleDelete = async (productId) => {
 
    // reset form
     setForm({
-      name: " ",
-      price: " ",
+      name: "",
+      price: "",
       image: null
     });
+    setPreview(null)
 
   } catch (err) {
     console.error(err);
@@ -113,21 +125,22 @@ const handleDelete = async (productId) => {
             <Navbar />
             <div className="flex flex-1 overflow-hidden ">
                     <MerchantSidebar />
-                    <div className=" flex-1 overflow-y-auto p-6">
-        <h1 className="text-3xl font-semibold mb-6">Manage Products</h1>
+          <div className=" flex-1 overflow-y-auto p-6">
+              <h1 className="text-3xl font-semibold mb-6">Manage Products</h1>
 
        
 
             {/* Add Product */}
-            <div className="bg-white p-6 rounded shadow max-w-md">
+            <div className="bg-white  flex flex-wrap p-6 rounded shadow max-w-md">
+              <div>
                 <h2 className="text-xl Font font-medium mb-4">Add Product</h2>
 
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                <form onSubmit={handleSubmit} className="flex flex-1 flex-col gap-4 md:w-80 ">
                 <input
                     name="name"
                     value={form.name}
                     placeholder="Product name"
-                    className="border p-2 rounded"
+                    className="border p-2  rounded"
                     onChange={handleChange}
                 />
 
@@ -154,10 +167,18 @@ const handleDelete = async (productId) => {
                     Add Product
                 </button>
                 </form>
+              </div>
+              
+              {
+                preview && <div className=" w-full h-full mt-2 ">
+                    <p className="Font text-lg">Preview </p>
+                    <img src={preview} alt="preview" />
+                </div>
+              }
             </div>
 
             {/* Existing Products */}
-            <div className="mt-10">
+            <div className="mt-10 ">
                 <h2 className="text-xl Font font-medium mb-4">Your Products</h2>
 
                 {products.length === 0 ? (
@@ -165,14 +186,14 @@ const handleDelete = async (productId) => {
                 ) : (
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-7 gap-4">
                     {products.map((p) => (
-                    <div key={p.id} className="border flex flex-col items-center max-w-50 p-4 rounded">
+                    <div key={p.id} className="border flex flex-col  max-w-55 p-4 rounded">
                         <img
                         src={p.imageUrl}
                         alt={p.name}
                         className="h-40  object-fit mb-2"
                         />
-                        <p className=" text-lg font-semibold">{p.name}</p>
-                        <p className="text-lg text-gray-600">₹{p.price}</p>
+                        <p className=" text-lg font-semibold ">{p.name}</p>
+                        <p className="text-lg text-start Font font-bold text-gray-600">Price: ₹{p.price}</p>
                         <div className=" flex justify-start w-full mt-5">
                             <button className=" text-sm  text-white font-semibold Font bg-red-500 hover:bg-red-600 rouned-xl px-2 py-2"  onClick={()=>{handleDelete(p.id)}}>Delete</button>
                         </div>

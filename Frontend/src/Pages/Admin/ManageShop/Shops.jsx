@@ -16,6 +16,10 @@ function Shops() {
   const [users, setUsers] = useState([]);
   const [showAddShop, setShowAddShop] = useState(false);
 
+  const removeShop = (id) => {
+  setShops((prev) => prev.filter(p => p.id !== id));
+};
+
   useEffect(() => {
     fetchShops().then(setShops);
     fetchFloors().then(setFloors);
@@ -54,6 +58,7 @@ function Shops() {
                 shop={shop}
                 floors={floors}
                 users={users}
+                removeShop = {removeShop}
               />
             ))}
           </div>

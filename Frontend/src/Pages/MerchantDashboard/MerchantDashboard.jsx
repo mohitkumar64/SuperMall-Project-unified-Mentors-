@@ -15,7 +15,9 @@ function MerchantDashboard() {
 
   const [form, setForm] = useState({
     name: "",
+    location : "",
     description: "",
+    category : "" ,
     logoFile: null,
   });
 
@@ -40,6 +42,9 @@ function MerchantDashboard() {
           name: shopData.name || "",
           description: shopData.description || "",
           logoFile: null,
+          location : shopData.location || "",
+          category :shopData.category || "" ,
+
         });
       } catch (err) {
         console.error("Failed to load shop", err);
@@ -82,6 +87,8 @@ function MerchantDashboard() {
       const updatedData = {
         name: form.name,
         description: form.description,
+        location : form.location ,
+        category : form.category ,
         logoUrl,
       };
 
@@ -120,15 +127,15 @@ function MerchantDashboard() {
       <div className="flex flex-1 overflow-hidden">
         <MerchantSidebar />
 
-        <div className="flex-1 oveflow-y-auto p-2 md:p-6">
+        <div className="flex-1  overflow-y-auto  p-2 md:p-6">
           <h1 className="text-3xl font-semibold mb-6">
             Shop Profile
           </h1>
 
-          <div className="bg-white rounded-lg shadow p-6 max-w-3xl">
+          <div className="bg-white  rounded-lg shadow p-2 md:p-6 max-w-3xl">
             {/* Header */}
             <div className="flex items-center gap-6 mb-6">
-              <div className="w-24 h-24 rounded-full bg-gray-200 overflow-hidden flex items-center justify-center">
+              <div className="w-30 h-22 md:h-30 rounded-full bg-gray-200 overflow-hidden flex items-center justify-center">
                 {shop.logoUrl ? (
                   <img
                     src={shop.logoUrl}
@@ -136,12 +143,12 @@ function MerchantDashboard() {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                 <p className="text-gray-500 bg-gray-700 flex items-center justify-center text-6xl font-bold Font w-full h-full" > {shop.name[0]}</p>
+                 <p className="text-gray-500 bg-gray-700 rounded-full flex items-center justify-center text-6xl font-bold Font w-full h-full" > {shop.name[0]}</p>
                 )}
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold">
+                <h2 className=" text-lg md:text-2xl font-bold">
                   {shop.name}
                 </h2>
                 <p className="text-gray-500">
@@ -151,7 +158,7 @@ function MerchantDashboard() {
             </div>
 
             {/* Form */}
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <form onSubmit={handleSubmit} className="flex  flex-col gap-4">
               <div>
                 <label className="block text-sm font-medium mb-1">
                   Shop Name
@@ -159,6 +166,28 @@ function MerchantDashboard() {
                 <input
                   name="name"
                   value={form.name}
+                  onChange={handleChange}
+                  className="w-full border rounded px-3 py-2"
+                />
+              </div>
+               <div>
+                <label className="block text-sm font-medium mb-1">
+                  Location
+                </label>
+                <input
+                  name="location"
+                  value={form.location}
+                  onChange={handleChange}
+                  className="w-full border rounded px-3 py-2"
+                />
+              </div>
+               <div>
+                <label className="block text-sm font-medium mb-1">
+                  category
+                </label>
+                <input
+                  name="category"
+                  value={form.category}
                   onChange={handleChange}
                   className="w-full border rounded px-3 py-2"
                 />

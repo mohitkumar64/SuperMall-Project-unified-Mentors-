@@ -101,6 +101,10 @@ function ProductDetails() {
               <span className="font-semibold">Shop:</span>{" "}
               {shop?.name}
             </p>
+             <p className="text-lg">
+              <span className="font-semibold">Shop Location:</span>{" "}
+              {shop?.location}
+            </p>
 
             <p className="text-lg">
               <span className="font-semibold">Merchant:</span>{" "}

@@ -1,4 +1,4 @@
-import { collection, getDocs, getDoc,  query, where , addDoc , updateDoc , doc , serverTimestamp } from "firebase/firestore";
+import { collection, getDocs, getDoc,  query, where , addDoc , updateDoc , doc , serverTimestamp , deleteDoc } from "firebase/firestore";
 import { db } from "./firebase";
 
 export async function fetchShopsByFloor(floorId) {
@@ -161,4 +161,48 @@ export async function fetchMerchantById(id) {
     id: snap.id,
     ...snap.data()
   };
+}
+
+
+
+
+export async function deleteShopWithProducts(shopId, merchantId) {
+  try {
+    const q = query(
+      collection(db, "products"),
+      where("shopId", "==", shopId)
+    );
+
+    const snapshot = await getDocs(q);
+
+    const deletes = snapshot.docs.map(d =>
+      deleteDoc(doc(db, "products", d.id))
+    );
+
+    await Promise.all(deletes);
+
+    await deleteDoc(doc(db, "shops", shopId));
+
+    await updateDoc(doc(db, "users", merchantId), {
+      shopId: null
+    });
+
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+}
+
+export async function demoteMerchantToUser(userId) {
+  try {
+    await updateDoc(doc(db, "users", userId), {
+      role: "user",
+      shopId: null
+    });
+
+    console.log("Merchant downgraded to user");
+  } catch (err) {
+    console.error("Failed to update role:", err);
+    throw err;
+  }
 }
