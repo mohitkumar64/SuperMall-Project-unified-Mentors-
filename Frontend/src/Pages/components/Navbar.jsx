@@ -39,7 +39,7 @@ const handleLogout = async()=>{
       <div className="ml-auto flex items-center gap-6 px-6">
         {
             // panel only for merchant or admin
-          role !="user" && 
+          (role !="user" && role !=null) && 
           
         <button className="Font text-lg hover:underline"  onClick={()=>{
           role === "admin" ?

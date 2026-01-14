@@ -92,22 +92,22 @@ function ProductDetails() {
         <div className="flex-1 flex flex-col gap-4">
           <h1 className="text-3xl font-bold">{product.name}</h1>
 
-          <p className="text-xl text-green-700 font-semibold">
-            ₹ {product.price}
+          <p className="text-xl text-green-700 font-bold Font">
+           Price: ₹ {product.price}
           </p>
 
           <div className="border-t pt-4">
             <p className="text-lg">
-              <span className="font-semibold">Shop:</span>{" "}
+              <span className="font-bold Font">Shop:</span>{" "}
               {shop?.name}
             </p>
              <p className="text-lg">
-              <span className="font-semibold">Shop Location:</span>{" "}
+              <span className="font-bold Font ">Shop Location:</span>{" "}
               {shop?.location}
             </p>
 
             <p className="text-lg">
-              <span className="font-semibold">Merchant:</span>{" "}
+              <span className="font-bold Font">Merchant:</span>{" "}
               {merchant?.name}
             </p>
           </div>
